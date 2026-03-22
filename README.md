@@ -94,8 +94,4 @@ cd Worker && python worker.py
 - Use Helm for advanced configuration and upgrades
 - Secure environment variables and secrets for production
 
----
-
-## License
-
 MIT — For educational use
