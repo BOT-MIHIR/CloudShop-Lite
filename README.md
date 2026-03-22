@@ -93,5 +93,3 @@ cd Worker && python worker.py
 - Update image repositories in manifests for your registry
 - Use Helm for advanced configuration and upgrades
 - Secure environment variables and secrets for production
-
-MIT — For educational use
