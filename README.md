@@ -1,5 +1,5 @@
 
-# CloudShop Lite - Kubernetes Project
+# CloudShop Lite Deployment by BOT-MIHIR
 
 This project demonstrates a microservices architecture deployed on Kubernetes, including:
 
@@ -9,6 +9,10 @@ This project demonstrates a microservices architecture deployed on Kubernetes, i
 - **Redis**: In-memory data store for caching and messaging
 
 All components are containerized with Docker and managed via Kubernetes manifests and Helm charts.
+
+The live demo is available at:
+
+**Public URL:** [http://a42ec1aa062b9405387fc7b9d766a850-879456498.us-east-1.elb.amazonaws.com:3000/](http://a42ec1aa062b9405387fc7b9d766a850-879456498.us-east-1.elb.amazonaws.com:3000/)
 
 ---
 
