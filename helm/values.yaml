@@ -1,0 +1,80 @@
+global:
+  imageTag: "latest"
+  
+
+redis:
+  replicaCount: 1
+  image:
+    repository: 386318839776.dkr.ecr.us-east-1.amazonaws.com/cloudshoplite/redis
+    pullPolicy: Always
+    tag: 7
+  port: 6379
+
+api:
+  replicaCount: 2
+  image:
+    repository: 386318839776.dkr.ecr.us-east-1.amazonaws.com/cloudshoplite/api
+    pullPolicy: Always
+    tag: latest
+  service:
+    port: 5000
+  env:
+    REDIS_HOST: redis-service
+
+worker:
+  replicaCount: 2
+  image:
+    repository: 386318839776.dkr.ecr.us-east-1.amazonaws.com/cloudshoplite/worker
+    pullPolicy: Always
+    tag: latest
+  env:
+    REDIS_HOST: redis-service
+
+frontend:
+  replicaCount: 2
+  image:
+    repository: 386318839776.dkr.ecr.us-east-1.amazonaws.com/cloudshoplite/frontend
+    pullPolicy: Always
+    tag: latest
+  service:
+    type: LoadBalancer
+    port: 3000
+  env:
+    API_URL: http://api-service:5000
+
+
+deployments:
+  api:
+    image: 386318839776.dkr.ecr.us-east-1.amazonaws.com/cloudshoplite/api
+    port: 5000
+
+  worker:
+    image: 386318839776.dkr.ecr.us-east-1.amazonaws.com/cloudshoplite/worker
+
+  frontend:
+    image: 386318839776.dkr.ecr.us-east-1.amazonaws.com/cloudshoplite/frontend
+    port: 3000
+
+  redis:
+    image: 386318839776.dkr.ecr.us-east-1.amazonaws.com/cloudshoplite/redis
+    port: 6379
+
+
+services:
+  api:
+    port: 5000
+    type: ClusterIP
+
+  frontend:
+    port: 3000
+    type: LoadBalancer
+
+  redis:
+    port: 6379
+    type: ClusterIP
+
+hpa:
+  enabled: true
+  minReplicas: 2
+  maxReplicas: 10
+  cpuUtilization: 50

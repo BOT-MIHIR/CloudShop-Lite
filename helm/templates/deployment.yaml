@@ -1,0 +1,49 @@
+{{- range $name, $config := .Values }}
+
+{{- if and (kindIs "map" $config) (hasKey $config "image") }}
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ $name }}-deployment
+  labels:
+    app: {{ $name }}
+
+spec:
+  replicas: {{ $config.replicaCount | default 1 }}
+
+  selector:
+    matchLabels:
+      app: {{ $name }}
+
+  template:
+    metadata:
+      labels:
+        app: {{ $name }}
+
+    spec:
+      containers:
+        - name: {{ $name }}
+
+          image: "{{ $config.image.repository }}:{{ $config.image.tag | default $.Values.global.imageTag }}"
+          imagePullPolicy: {{ $config.image.pullPolicy | default "IfNotPresent" }}
+
+          {{- if $config.service }}
+          ports:
+            - containerPort: {{ $config.service.port }}
+          {{- else if $config.port }}
+          ports:
+            - containerPort: {{ $config.port }}
+          {{- end }}
+
+          {{- if $config.env }}
+          env:
+            {{- range $key, $value := $config.env }}
+            - name: {{ $key }}
+              value: "{{ $value }}"
+            {{- end }}
+          {{- end }}
+
+---
+{{- end }}
+{{- end }}
