@@ -1,37 +1,34 @@
 
-# CloudShop Lite — Microservices Demo
+# CloudShop Lite - Kubernetes Project
 
-This project showcases a microservices architecture using Docker and Kubernetes, featuring:
+This project demonstrates a microservices architecture deployed on Kubernetes, including:
 
-- **API**: Python Flask backend
-- **Frontend**: Python Flask web UI
-- **Worker**: Python background job processor
-- **Redis**: Caching & message broker
+- **API**: Python Flask backend service
+- **Frontend**: Python Flask web interface
+- **Worker**: Python background job handler
+- **Redis**: In-memory data store for caching and messaging
 
-All services are containerized and orchestrated with Kubernetes manifests. The live demo is available at:
-
-**Public URL:** [http://a42ec1aa062b9405387fc7b9d766a850-879456498.us-east-1.elb.amazonaws.com:3000/](http://a42ec1aa062b9405387fc7b9d766a850-879456498.us-east-1.elb.amazonaws.com:3000/)
+All components are containerized with Docker and managed via Kubernetes manifests and Helm charts.
 
 ---
 
 ## Project Structure
 
 ```
-API/           # Backend Flask app
-Frontend/      # Web UI Flask app
-Worker/        # Background job processor
-k8s-manifests/ # Kubernetes YAMLs
-helm/          # Helm chart for advanced deployment
-docs/          # Documentation
-ci-cd/         # CI/CD configs
+API/           # Flask API service
+Frontend/      # Flask web UI
+Worker/        # Background worker service
+k8s-manifests/ # Kubernetes deployment files
+helm/          # Helm chart for deployment
+.github/       # CI/CD workflows
 ```
 
 ## Features
 
-- **Frontend** displays visit count and background job stats
-- **API** exposes endpoints for visit tracking and health checks
-- **Worker** increments background job count in Redis
-- **Redis** enables fast state sharing between services
+- **Frontend** shows visit counter and job statistics
+- **API** provides endpoints for tracking visits and health status
+- **Worker** processes background jobs and updates Redis
+- **Redis** facilitates data sharing across services
 
 ---
 
@@ -39,14 +36,7 @@ ci-cd/         # CI/CD configs
 
 ### 1. Build Docker Images
 
-Navigate to each service directory and build the Docker images:
-
-
-```bash
-cd API && docker build -t api-service .
-cd ../Frontend && docker build -t frontend-service .
-cd ../Worker && docker build -t worker-service .
-```
+Build the Docker images for each service:
 
 
 ### 2. Deploy to Kubernetes
